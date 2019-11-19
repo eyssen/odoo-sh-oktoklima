@@ -10,7 +10,7 @@ Oktoklima Addon
     """,
     'category': 'Other',
     'website': 'https://www.eyssen.hu',
-    'depends' : ['product'],
+    'depends' : ['sale','product'],
     'data': [
         'security/ir.model.access.csv',
         'views/product.xml',
