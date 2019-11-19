@@ -21,7 +21,11 @@ class ProductTemplate(models.Model):
     def _compute_okto_price(self):
         
         ProductTemplateS = self.env['product.template'].search([('seller_ids', '!=', False)])
+        i = 0
         for ProductTemplate in ProductTemplateS:
+            i += 1
+            if i % 1000 == 0:
+                _logger.info(i)
             if ProductTemplate.seller_ids:
                 supplier_price = ProductTemplate.seller_ids[0].currency_id._convert(ProductTemplate.seller_ids[0].price, ProductTemplate.currency_id, self.env.user.company_id, fields.Date.today())
                 

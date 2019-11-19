@@ -31,17 +31,37 @@
 			<field name="name">product.family.tree</field>
 			<field name="model">product.family</field>
 			<field name="arch" type="xml">
-				<tree string="Termékcsalád" editable="top">
+				<tree string="Termékcsalád">
 					<field name="name" />
 					<field name="discount" />
 				</tree>
+			</field>
+		</record>
+		
+		<record id="view_product_family_form" model="ir.ui.view">
+			<field name="name">product.family.form</field>
+			<field name="model">product.family</field>
+			<field name="arch" type="xml">
+				<form string="Termékcsalád" editable="top">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" />
+							</group>
+							<group>
+								<field name="discount" />
+							</group>
+							<field name="product_template_ids" />
+						</group>
+					</sheet>
+				</form>
 			</field>
 		</record>
 
 		<record id='product_family_action' model='ir.actions.act_window'>
 			<field name="name">Termékcsalád</field>
 			<field name="res_model">product.family</field>
-			<field name="view_mode">tree</field>
+			<field name="view_mode">tree,form</field>
 		</record>
 
 		<menuitem action="product_family_action" parent="sale.menu_sale_general_settings" id="menu_product_family" />
