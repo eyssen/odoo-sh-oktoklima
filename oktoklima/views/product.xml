@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+
+
+
+		<!-- Product Template -->
+
+        <record id="product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.form.view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+
+				<field name="categ_id" position="after">
+					<field name="family_id" />
+				</field>
+
+            </field>
+        </record>
+
+
+
+
+
+		<!-- Product Family -->
+
+		<record id="view_product_family_tree" model="ir.ui.view">
+			<field name="name">product.family.tree</field>
+			<field name="model">product.family</field>
+			<field name="arch" type="xml">
+				<tree string="Termékcsalád" editable="top">
+					<field name="name" />
+					<field name="discount" />
+				</tree>
+			</field>
+		</record>
+
+		<record id='product_family_action' model='ir.actions.act_window'>
+			<field name="name">Termékcsalád</field>
+			<field name="res_model">product.family</field>
+			<field name="view_type">tree</field>
+			<field name="view_mode">tree</field>
+		</record>
+
+		<menuitem action="product_family_action" parent="sale.menu_sale_general_settings" id="menu_product_family" />
+
+
+
+
+
+    </data>
+</odoo>
