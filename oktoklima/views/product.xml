@@ -50,5 +50,24 @@
 
 
 
+		<!-- Product Category -->
+
+        <record id="product_category_form_view" model="ir.ui.view">
+            <field name="name">product.category.form.view</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+
+				<field name="parent_id" position="after">
+					<field name="list_price_margin" />
+				</field>
+
+            </field>
+        </record>
+
+
+
+
+
     </data>
 </odoo>
