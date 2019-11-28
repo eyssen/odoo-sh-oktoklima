@@ -32,6 +32,7 @@
 			<field name="model">product.family</field>
 			<field name="arch" type="xml">
 				<search>
+					<field name="name" />
 					<group string="Group By">
 						<filter name="group_by_categ_id" string="Termékkategória" context="{'group_by': 'categ_id'}" />
 					</group>
