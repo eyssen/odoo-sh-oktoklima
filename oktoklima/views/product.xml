@@ -15,7 +15,7 @@
             <field name="arch" type="xml">
 
 				<field name="categ_id" position="after">
-					<field name="family_id" />
+					<field name="family_id" domain="[('categ_id', '=', categ_id)]" />
 				</field>
 
             </field>
@@ -27,11 +27,24 @@
 
 		<!-- Product Family -->
 
+		<record id="view_product_family_search" model="ir.ui.view">
+			<field name="name">product.family.search</field>
+			<field name="model">product.family</field>
+			<field name="arch" type="xml">
+				<search>
+					<group string="Group By">
+						<filter name="group_by_categ_id" string="Termékkategória" context="{'group_by': 'categ_id'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+
 		<record id="view_product_family_tree" model="ir.ui.view">
 			<field name="name">product.family.tree</field>
 			<field name="model">product.family</field>
 			<field name="arch" type="xml">
 				<tree string="Termékcsalád">
+					<field name="categ_id" />
 					<field name="name" />
 					<field name="discount" />
 				</tree>
@@ -44,9 +57,15 @@
 			<field name="arch" type="xml">
 				<form string="Termékcsalád" editable="top">
 					<sheet>
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only" />
+							<h1>
+								<field name="name" />
+							</h1>
+						</div>
 						<group>
 							<group>
-								<field name="name" />
+								<field name="categ_id" />
 							</group>
 							<group>
 								<field name="discount" />
@@ -62,6 +81,8 @@
 			<field name="name">Termékcsalád</field>
 			<field name="res_model">product.family</field>
 			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_group_by_categ_id': 1}
+			</field>
 		</record>
 
 		<menuitem action="product_family_action" parent="sale.menu_sale_general_settings" id="menu_product_family" />

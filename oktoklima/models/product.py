@@ -50,6 +50,7 @@ class ProductFamily(models.Model):
     
     
     name = fields.Char(u'Termékcsalád', required=True)
+    categ_id = fields.Many2one('product.category', u'Termékkategória', required=True)
     discount = fields.Float(u'Kedvezmény', default=0, digits=(12,4))
     product_template_ids = fields.One2many('product.template', 'family_id', u'Termékek')
 
