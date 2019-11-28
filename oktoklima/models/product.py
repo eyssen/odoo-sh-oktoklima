@@ -39,14 +39,9 @@ class ProductTemplate(models.Model):
                 
                 ProductTemplate.standard_price = standard_price
                 ProductTemplate.list_price = standard_price * ProductTemplate.categ_id.list_price_margin
-    
-
-    def _family_categ(self):
             
-        PS = self.env['product.template'].search([('family_id', '!=', False), ('family_id.categ_id.id', '!=', 5)])
-        for P in PS:
-            _logger.info(P.name)
-            P.categ_id = P.family_id.categ_id
+
+
 
 
 class ProductFamily(models.Model):
