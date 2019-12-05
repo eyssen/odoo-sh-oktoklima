@@ -14,6 +14,7 @@ Oktoklima Addon
     'data': [
         'security/ir.model.access.csv',
         'views/product.xml',
+        'views/currency.xml',
     ],
     'installable': True,
     'application': True,
