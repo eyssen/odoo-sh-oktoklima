@@ -18,7 +18,7 @@ class ProductTemplate(models.Model):
     family_id = fields.Many2one('product.family', u'Termékcsalád')
     
     
-    def _compute_okto_price(self):
+    def compute_okto_price(self):
         
         sql_query = """
             SELECT product_template.id, product_template.name, product_supplierinfo.id AS sid, product_supplierinfo.price,
@@ -29,6 +29,8 @@ class ProductTemplate(models.Model):
                 JOIN product_category ON product_template.categ_id=product_category.id
                 LEFT JOIN product_family ON product_template.family_id=product_family.id
         """
+        if self.id:
+            sql_query += " WHERE product_template.id=" + str(self.id)
         self.env.cr.execute(sql_query)
         ProductTemplateS = self.env.cr.dictfetchall()
 
@@ -36,7 +38,7 @@ class ProductTemplate(models.Model):
         for ProductTemplate in ProductTemplateS:
             i += 1
             if i % 1000 == 0:
-                _logger.info('_compute_okto_price ' + str(i))
+                _logger.info('compute_okto_price ' + str(i))
             
             ProductSupplierinfo = self.env['product.supplierinfo'].browse(ProductTemplate['sid'])
             supplier_price = ProductSupplierinfo.currency_id._convert(ProductTemplate['price'], ProductSupplierinfo.currency_id, self.env.user.company_id, fields.Date.today())
@@ -56,7 +58,7 @@ class ProductTemplate(models.Model):
                 SET list_price = %s
                 WHERE id = %s
             """
-            params = (list_price, ProductTemplate['sid'])
+            params = (list_price, ProductTemplate['id'])
             self.env.cr.execute(sql_query, params)
             
             # standard_price
