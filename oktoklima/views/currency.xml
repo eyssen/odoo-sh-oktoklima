@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+
+
+
+		<!-- Currency -->
+
+        <record id="view_currency_form" model="ir.ui.view">
+            <field name="name">res.currency.form.view</field>
+            <field name="model">res.currency</field>
+            <field name="inherit_id" ref="base.view_currency_form"/>
+            <field name="arch" type="xml">
+
+				<field name="rate" position="after">
+					<field name="okto_euro_exchange_rate" />
+				</field>
+
+            </field>
+        </record>
+
+
+
+
+
+    </data>
+</odoo>

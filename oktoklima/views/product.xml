@@ -13,9 +13,13 @@
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_form_view"/>
             <field name="arch" type="xml">
+            
+				<header>
+					<button name="compute_okto_price" string="Árszámítás" type="object" />
+				</header>
 
 				<field name="categ_id" position="after">
-					<field name="family_id" />
+					<field name="family_id" domain="[('categ_id', '=', categ_id)]" />
 				</field>
 
             </field>
@@ -27,24 +31,98 @@
 
 		<!-- Product Family -->
 
+		<record id="view_product_family_search" model="ir.ui.view">
+			<field name="name">product.family.search</field>
+			<field name="model">product.family</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="name" />
+					<group string="Group By">
+						<filter name="group_by_categ_id" string="Termékkategória" context="{'group_by': 'categ_id'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+
 		<record id="view_product_family_tree" model="ir.ui.view">
 			<field name="name">product.family.tree</field>
 			<field name="model">product.family</field>
 			<field name="arch" type="xml">
-				<tree string="Termékcsalád" editable="top">
+				<tree string="Termékcsalád">
+					<field name="categ_id" />
 					<field name="name" />
 					<field name="discount" />
 				</tree>
+			</field>
+		</record>
+		
+		<record id="view_product_family_form" model="ir.ui.view">
+			<field name="name">product.family.form</field>
+			<field name="model">product.family</field>
+			<field name="arch" type="xml">
+				<form string="Termékcsalád" editable="top">
+					<sheet>
+						<div class="oe_title">
+							<label for="name" class="oe_edit_only" />
+							<h1>
+								<field name="name" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="categ_id" />
+							</group>
+							<group>
+								<field name="discount" />
+							</group>
+							<field name="product_template_ids" />
+						</group>
+					</sheet>
+				</form>
 			</field>
 		</record>
 
 		<record id='product_family_action' model='ir.actions.act_window'>
 			<field name="name">Termékcsalád</field>
 			<field name="res_model">product.family</field>
-			<field name="view_mode">tree</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'search_default_group_by_categ_id': 1}
+			</field>
 		</record>
 
 		<menuitem action="product_family_action" parent="sale.menu_sale_general_settings" id="menu_product_family" />
+
+
+
+
+
+		<!-- Product Category -->
+
+        <record id="product_category_form_view" model="ir.ui.view">
+            <field name="name">product.category.form.view</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+
+				<field name="parent_id" position="after">
+					<field name="list_price_margin" />
+				</field>
+
+            </field>
+        </record>
+
+        <record id="product_category_list_view" model="ir.ui.view">
+            <field name="name">product.category.list.view</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_list_view"/>
+            <field name="arch" type="xml">
+
+				<field name="display_name" position="after">
+					<field name="list_price_margin" />
+				</field>
+
+            </field>
+        </record>
 
 
 
