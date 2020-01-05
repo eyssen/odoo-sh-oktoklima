@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+		
+
+
+		
+		
+		<record id="view_partner_property_form" model="ir.ui.view">
+				<field name="name">hu.view.partner.property.form</field>
+				<field name="model">res.partner</field>
+				<field name="inherit_id" ref="account.view_partner_property_form"/>
+				<field name="arch" type="xml">
+
+						<field name="vat" position="replace">
+								<field name="vat_hu" placeholder="e.g. 12345678­-1-23" attrs="{'invisible': [('company_type', '!=', 'company')]}" />
+								<field name="vat" placeholder="e.g. HU12345678" string="Közösségi adószám" attrs="{'invisible': [('company_type', '!=', 'company')]}" />
+								<field name="reg_number" placeholder="e.g. BS-CF-NNNNNN" attrs="{'invisible': [('company_type', '!=', 'company')]}" />
+						</field>
+
+				</field>
+		</record>
+
+
+
+
+
+</odoo>

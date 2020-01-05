@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+
+		<template id="deliver_note_layout">
+			<div class="article">
+			<t t-raw="0" />
+			</div>
+		</template>
+		
+		
+		<template id="report_delivery_note">
+		    <t t-call="web.html_container">
+		        <t t-foreach="docs" t-as="dn">
+		            <t t-call="account_hu.deliver_note_layout">
+		                <div class="page">
+
+							<!-- Title -->
+							<div class="invoice-logo">
+								<img src="/logo.png" height="50"/>
+							</div>
+		
+							<!-- Title -->
+							<div class="invoice-title">
+								<h1>SZÁLLÍTÓLEVÉL</h1>
+								<h2>(DELIVERY NOTE)</h2>
+							</div>
+
+							<!-- Header -->
+							<div class="invoice-header" style="margin-top: 5px;">
+								<div class="row row-eq-height">
+									<div class="col-xs-6 right-border"><h1><strong>SZÁLLÍTÓ</strong></h1><h2>(Supplier)</h2></div>
+									<div class="col-xs-6"><h1><strong>VEVŐ</strong></h1><h2>(Client)</h2></div>
+								</div>
+								<div class="row row-eq-height">
+									<div class="col-xs-6 right-border">
+										<p><strong><span t-field="dn.company_id.name" /></strong></p>
+										<p style="margin-left: 5px;" t-field="dn.company_id.city" />
+										<p style="margin-left: 5px;"><span t-field="dn.company_id.street" /><span t-field="dn.company_id.street2" /></p>
+									</div>
+									<div class="col-xs-6">
+										<p><strong><span t-field="dn.partner_id.title" /><span t-field="dn.partner_id.name" /></strong></p>
+										<p style="margin-left: 5px;" t-field="dn.partner_id.city" />
+										<p style="margin-left: 5px;"><span t-field="dn.partner_id.street" /><span t-field="dn.partner_id.street2" /></p>
+									</div>
+								</div>
+								<div class="row row-eq-height">
+									<div class="col-xs-3"><p t-field="dn.company_id.zip" style="margin-left: 5px;"/></div>
+									<div class="col-xs-3 right-border"><p t-field="dn.company_id.country_id.name" /></div>
+									<div class="col-xs-3"><p t-field="dn.partner_id.zip" style="margin-left: 5px;" /></div>
+									<div class="col-xs-3"><p t-field="dn.partner_id.country_id.name" /></div>
+								</div>
+								<div class="row row-eq-height">
+									<div class="col-xs-6 right-border" style="min-height: 10px;"></div>
+									<div class="col-xs-6" style="min-height: 10px;"></div>
+								</div>
+								<div class="row row-eq-height">
+									<div class="col-xs-2"><h1>ADÓSZÁM</h1><h2>(VAT No.)</h2></div>
+									<div class="col-xs-4 right-border" style="min-height: 31px;"><p t-field="dn.company_id.partner_id.vat_hu" /></div>
+									<div class="col-xs-2"><h1>ADÓSZÁM</h1><h2>(VAT No.)</h2></div>
+									<div class="col-xs-4" style="min-height: 31px;"><p t-field="dn.partner_id.vat_hu" /></div>
+								</div>
+								<div class="row row-eq-height">
+									<div class="col-xs-2"><h1>KÖZÖSSÉGI ADÓSZÁM</h1><h2>(EU VAT No.)</h2></div>
+									<div class="col-xs-4 right-border" style="min-height: 31px;"><p t-field="dn.company_id.partner_id.vat" /></div>
+									<div class="col-xs-2"><h1>KÖZÖSSÉGI ADÓSZÁM</h1><h2>(EU VAT No.)</h2></div>
+									<div class="col-xs-4" style="min-height: 31px;"><p t-field="dn.partner_id.vat" /></div>
+								</div>
+								<div class="row row-eq-height">
+									<div class="col-xs-2"><h1>CÉGJEGYZÉKSZÁM</h1><h2>(Trade reg.)</h2></div>
+									<div class="col-xs-4 right-border" style="min-height: 31px;"><p t-field="dn.company_id.company_registry" /></div>
+									<div class="col-xs-6" style="min-height: 31px;"></div>	
+								</div>
+								<div class="col-xs-6" style="display: none;">
+									<div name="invoice_address"></div>
+								</div>
+							</div>
+
+							<!-- Parameters -->
+							<div class="invoice-parameters" style="margin-top: 5px;">
+								<div class="row row-eq-height">
+									<div class="col-xs-2" style="background-color: #CCCCCC;"><h1>SZÁLLÍTÓLEVÉL SORSZÁMA</h1><h2>(Delivery note number)</h2></div>
+									<div class="col-xs-2 left-border"><h1>SZÁLLÍTÁS MÓDJA</h1><h2>(Mode of delivery)</h2></div>
+									<div class="col-xs-2 left-border"><h1></h1><h2></h2></div>
+									<div class="col-xs-2 left-border"><h1></h1><h2></h2></div>
+									<div class="col-xs-2 left-border"><h1>RENDELÉSSZÁM / FORRÁS</h1><h2>(Order number / Source)</h2></div>
+									<div class="col-xs-2 left-border"><h1>SZÁLLÍTÁS IDŐPONTJA</h1><h2>(Delivery date)</h2></div>
+								</div>
+								<div class="row row-eq-height">
+									<div class="col-xs-2" style="background-color: #CCCCCC;"><strong><p t-field="dn.name" align="center" /></strong></div>
+									<div class="col-xs-2 left-border"><p t-field="dn.mode_of_delivery" align="center" /></div>
+									<div class="col-xs-2 left-border"></div>
+									<div class="col-xs-2 left-border"></div>
+									<div class="col-xs-2 left-border"><p t-field="dn.origin" align="center" /></div>
+									<div class="col-xs-2 left-border"><strong><p t-field="dn.scheduled_date" t-field-options='{"format": "yyyy-MM-dd"}' align="center" /></strong></div>
+								</div>
+								<div class="row row-eq-height">
+									<div class="col-xs-2 top-border"><h1>Megjegyzés</h1><h2>(Note)</h2></div>
+									<div class="col-xs-10 top-border"><p t-field="dn.comment" /></div>
+								</div>
+							</div>
+
+							<!-- Items -->
+							<div class="invoice-items" style="min-height: 830px; margin-top: 5px;">
+								<table width="100%">
+									<thead class="invoice-items-thead">
+										<tr>
+											<th><h1>MEGNEVEZÉS / SZJ / VTSZ</h1><h2>(Name of product / service / code)</h2></th>
+											<th><h1>MENNYISÉG</h1><h2>(Quantity)</h2></th>
+											<span groups="product.group_uom">
+												<th><h1>M.E.</h1><h2>(Unit)</h2></th>
+											</span>
+										</tr>
+									</thead>
+									<tbody class="invoice-items-tbody">
+										<tr t-foreach="dn.move_lines" t-as="ml">
+											<td>
+												<span t-field="ml.product_id" />
+											</td>
+											<td align="right">
+												<span t-field="ml.quantity_done" />
+											</td>
+											<span groups="product.group_uom">
+												<td align="right">
+													<span t-field="ml.product_uom" />
+												</td>
+											</span>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<!-- Footer -->
+							<div class="invoice-footer" style="margin-top: 5px;">
+								<div class="row">
+									<div class="col-xs-12 top-border left-border right-border bottom-border">
+										<h1>A kiszállított áru ellenértékének megfizetéséig az áru tulajdonjogát fenntartjuk.</h1>
+										<h2>(Until the payment of the goods delivered, we reserve the ownership of the goods.)</h2>
+									</div>
+								</div>
+							</div>
+		
+							<!-- ERP box -->
+							<div class="invoice-erpbox">
+								<div class="row">
+									<div class="col-xs-12">
+										<p>
+											A szállítólevél és a szállítólevelet előállító program megfelel az NGM rendelet előírásainak.<br />
+											Ez a szállítólevél az eYssen IT Services Odoo rendszerével készült. <a href="https://eyssen.hu">https://eyssen.hu</a>
+										</p>
+									</div>
+								</div>
+							</div>
+
+		                </div>
+		            </t>
+		        </t>
+		    </t>
+		</template>
+
+
+	</data>
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+
+
+
+        <record id="merge_bank_statement_form" model="ir.ui.view">
+            <field name="name">account.merge.bank.statement.form</field>
+            <field name="model">account.merge.bank.statement</field>
+            <field name="arch" type="xml">
+                <form string="Merge Bank Statements">
+                    <group string="New Bank Statement">
+                        <field name="name" class="oe_inline"/>
+                    </group>
+                    <group string="Select Bank Statements">
+                        <field name="statement_ids" nolabel="1"/>
+                    </group>
+                    <footer>
+                        <button name="action_merge" type="object" string="Merge" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="merge_bank_statement_act" model="ir.actions.act_window">
+            <field name="name">Merge Bank Statements</field>
+            <field name="res_model">account.merge.bank.statement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="merge_bank_statement_form"/>
+            <field name="target">new</field>
+        </record>
+
+
+        <act_window
+            id="action_merge_bank_statement"
+            name="Merge"
+            multi="True"
+            key2="client_action_multi"
+            res_model="account.merge.bank.statement"
+            src_model="account.bank.statement"
+            view_mode="form"
+            target="new"
+            view_type="form"
+            groups="account.group_account_manager" />
+
+
+
+
+
+</odoo>

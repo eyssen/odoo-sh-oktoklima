@@ -1,0 +1,31 @@
+# -*- coding: utf-8 -*-
+{
+    'name': u'Account HU',
+    'description': u'Magyar számlázó modul',
+    'category': 'Accounting',
+    'version': '1.0',
+    'author': 'eYssen IT Services',
+    'website': 'https://eyssen.hu/',
+    'depends': [
+        'account',
+        'l10n_hu',
+        'base_vat',
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/company.xml',
+        'views/partner.xml',
+        'views/account_move.xml',
+        'views/product.xml',
+        #'views/stock.xml',
+        #'views/merge_bank_statement.xml',
+        'report/report.xml',
+        'report/report_invoice.xml',
+        #'report/report_delivery_note.xml',
+        #'report/report_bank_statement.xml',
+        #'data/config.xml',
+    ],
+    'application': False,
+    'installable': True,
+    'auto_install': False,
+}

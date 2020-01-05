@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+
+
+
+
+		<record id="paperformat_clean" model="report.paperformat"> 
+		  <field name="name">No header A4 Portrait</field> 
+		  <field name="default" eval="True" /> 
+		  <field name="format">A4</field> 
+		  <field name="page_height">0</field> 
+		  <field name="page_width">0</field> 
+		  <field name="orientation">Portrait</field> 
+		  <field name="margin_top">7</field> 
+		  <field name="margin_bottom">7</field> 
+		  <field name="margin_left">7</field> 
+		  <field name="margin_right">7</field> 
+		  <field name="header_line" eval="False" />
+		  <field name="header_spacing">0</field> 
+		  <field name="dpi">90</field> 
+		</record>
+
+
+
+
+
+        <report 
+            id="account.account_invoices_hu"
+            model="account.move"
+            string="Invoices"
+            report_type="qweb-pdf"
+            name="account.report_invoice"
+            file="account.report_invoice"
+            attachment="(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')"
+            print_report_name="(object._get_report_base_filename())"
+            paperformat="account_hu.paperformat_clean"
+        />
+
+
+
+
+
+        <!-- <report 
+            id="stock.delivery_note"
+            model="stock.picking"
+            string="Szállítólevél"
+            report_type="qweb-pdf"
+            name="account_hu.report_delivery_note"
+            file="account_hu.report_delivery_note"
+            print_report_name="'Delivery Note - %s' % object.name"
+            paperformat="account_hu.paperformat_account_hu_invoice"
+        /> -->
+
+
+
+
+
+		<template id="account_hu_layout">
+			<div class="article">
+			<t t-raw="0" />
+			</div>
+		</template>
+
+
+
+
+
+		<template id="layout" inherit_id="web.report_layout">
+		    <xpath expr="//head" position="inside">
+		        <link rel='stylesheet' href="/account_hu/static/src/css/account_hu.css"/>
+		    </xpath>
+		</template>
+
+		<template id="assets_pdf" inherit_id="web.report_assets_pdf">
+			<xpath expr="." position="inside">
+		        <link rel='stylesheet' href="/account_hu/static/src/css/account_hu.css"/>
+		    </xpath>
+		</template>
+
+
+
+		
+
+	</data>
+</openerp>

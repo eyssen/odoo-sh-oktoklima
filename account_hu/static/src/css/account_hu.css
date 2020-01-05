@@ -1,0 +1,244 @@
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;  
+}
+
+.page * {
+	padding-top: 0;
+	padding-bottom: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.page h1 {
+	margin: 2px;
+	margin-top: 5px;
+	font-size: 10px;
+	font-style: italic;
+}
+
+.h1like {
+	font-size: 12px;
+	font-style: italic;
+}
+
+.page h2 {
+	margin-left: 5px;
+	margin-bottom: 5px;
+	font-size: 10px;
+	font-style: italic;
+}
+
+.page p {
+	margin: 2px;
+	margin-bottom: 0px;
+	font-size: 14px;
+}
+
+.invoice-title {
+	background-color: #CCCCCC;
+	border-style: solid;
+	border-width: 1px;
+	text-align: center;
+	margin-bottom: 20px;
+	margin-left: -15px;
+	margin-right: -15px;
+}
+
+.mgl {
+	margin-left: 1px;
+}
+
+.mgr {
+	margin-right: 1px;
+}
+
+.invoice-title h1 {
+	font-size: 20px;
+}
+
+.invoice-title h2 {
+	font-size: 12px;
+}
+
+.invoice-header {
+	border-style: solid;
+	border-width: 1px;
+	margin-left: -15px;
+	margin-right: -15px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.invoice-parameters {
+	border: 1px solid;
+	margin-left: -15px;
+	margin-right: -15px;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-top: 10px;
+}
+
+.top-border {
+	border-top-width: 1px;
+	border-top-style: solid;
+}
+
+.right-border {
+	border-right-width: 1px;
+	border-right-style: solid;
+}
+
+.left-border {
+	border-left-width: 1px;
+	border-left-style: solid;
+}
+
+.left-right-border {
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-right-width: 1px;
+	border-right-style: solid;
+}
+
+.bottom-border {
+	border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.invoice-items {
+	margin-top: 20px;
+	margin-left: -15px;
+	margin-right: -15px;
+}
+	
+.invoice-items-thead th {
+	border-style: solid;
+	border-width: 1px;
+}
+
+.invoice-items-tbody td {
+	padding: 2px !important;
+	font-size: 12px;
+}
+
+.invoice-items-section {
+	background-color: #eeeeee;
+	border-top: 1px solid #cccccc;
+	border-bottom: 1px solid #cccccc;
+}
+
+.invoice-vatbox td, .invoice-vatbox th {
+	text-align: right;
+}
+
+p.comment {
+	font-size: 10px;
+	margin-left: 15px;
+}
+
+.invoice-vatbox {
+	margin-top: 20px;
+	margin-left: -15px;
+	margin-right: -15px;
+	padding-right: 15px;
+}
+
+.invoice-footer {
+	margin-top: 10px;
+}
+
+.invoice-erpbox {
+	margin-top: 0;
+}
+
+.invoice-erpbox p {
+	font-size: 8px;
+}
+
+.col-1,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-10,
+.col-11,
+.col-12 {
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+
+
+.statementpage * {
+	padding-top: 0;
+	padding-bottom: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.statementpage h1 {
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.statementpage h2 {
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.statementpage p {
+	margin: 2px;
+	margin-bottom: 0px;
+	font-size: 14px;
+}
+
+.statementtable {
+	border-collapse: collapse;
+	border: solid 1px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.statementtable thead {
+	background-color: lightgrey;
+	font-weight: bold;
+}
+
+.statementtable td {
+	padding: 5px;
+	font-size: 14px;
+	border: solid 1px;
+}
+
+.statementsumtable td {
+	font-weight: bold;
+}
+
+.statementcashboxtable{
+	margin-top: 20px;
+}
+
+.statementcashboxtable thead {
+	font-weight: bold;
+}
+
+.statementcashboxtable td {
+	text-align: right;
+}
+
+.statementcashboxtable h2 {
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+}
