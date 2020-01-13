@@ -16,6 +16,7 @@ class product_template(models.Model):
     list_price_gross = fields.Float(u'Bruttó eladási ár', compute='_compute_gross_price', readonly=True)
     vtsz_id = fields.Many2one('vtsz', string="VTSZ")
     szj_id = fields.Many2one('szj', string="SZJ")
+    kvtd_ids = fields.One2many('product.kvtd', 'product_tmpl_id', u'KVTD')
 
 
     @api.depends('list_price', 'taxes_id')
@@ -49,3 +50,39 @@ class szj(models.Model):
     name = fields.Char('SZJ', required=True)
     description = fields.Char('Megnevezés')
     product_template_ids = fields.One2many('product.template', 'szj_id', string="Termékek")
+
+
+
+
+
+class kvtd(models.Model):
+    
+    _name = "kvtd"
+    
+    
+    name = fields.Char(u'Megnevezés', required=True)
+    vtsz_id = fields.Many2one('vtsz', string="VTSZ")
+    rate = fields.Float(u'Díjtétel (Ft/kg)', required=True)
+
+    
+    _sql_constraints = [
+        ('name_uniq', 'unique(name)', 'A megnevezésnek egyedinek kell lennie!'),
+    ]
+
+
+
+
+
+class product_kvtd(models.Model):
+
+    _name = "product.kvtd"
+    
+    
+    product_tmpl_id = fields.Many2one('product.template', u'Termék', required=True)
+    kvtd_id = fields.Many2one('kvtd', u'Termékdíj fajtája', required=True)
+    weight = fields.Float(u'Mennyiség (kg)', required=True)
+
+    
+    _sql_constraints = [
+        ('product_kvtd_uniq', 'unique(product_tmpl_id, kvtd_id)', 'Egy termékdíj fajta csak egyszer szerepelhet egy terméknél!'),
+    ]

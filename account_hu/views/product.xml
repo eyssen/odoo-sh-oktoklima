@@ -19,6 +19,19 @@
 					<field name="vtsz_id" attrs="{'invisible': [('type', '!=', 'product')]}" />
 					<field name="szj_id" attrs="{'invisible': [('type', '!=', 'service')]}" />
 				</field>
+				
+				<notebook>
+					<page name="kvtd" string="KVTD">
+						<group>
+							<field name="kvtd_ids" nolabel="1">
+								<tree editable="top">
+									<field name="kvtd_id" />
+									<field name="weight" />
+								</tree>
+							</field>
+						</group>
+					</page>
+				</notebook>
 
 			</field>
 		</record>
@@ -40,6 +53,32 @@
 
 
 
+
+		<!-- KVTD -->
+
+		<record id="view_kvtd_tree" model="ir.ui.view">
+			<field name="name">kvtd.tree</field>
+			<field name="model">kvtd</field>
+			<field name="arch" type="xml">
+				<tree string="Környezetvédelmi termékdíj" editable="top">
+					<field name="name" />
+					<field name="vtsz_id" />
+					<field name="rate" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id='kvtd_action' model='ir.actions.act_window'>
+			<field name="name">Környezetvédelmi termékdíj</field>
+			<field name="res_model">kvtd</field>
+			<field name="view_mode">tree</field>
+		</record>
+
+		<menuitem action="kvtd_action" parent="account.menu_finance_configuration" id="menu_kvtd" />
+
+
+		
+		
 
 	</data>
 </openerp>
