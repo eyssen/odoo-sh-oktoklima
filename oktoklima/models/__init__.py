@@ -3,3 +3,4 @@
 
 from . import product
 from . import currency
+from . import order
