@@ -18,11 +18,18 @@
 
 								<field name="ref" position="after">
 										<field name="intermediary_services"/>
+										<field name="kvtd"/>
 								</field>
 
 								<field name="currency_id" position="after">
 										<field name="currency_rate"/>
 								</field>
+						
+								<notebook>
+									<page name="kvtd" string="KVTD" attrs="{'invisible': [('kvtd', '==', False)]}">
+									
+									</page>
+								</notebook>
 
 						</data>
 				</field>
