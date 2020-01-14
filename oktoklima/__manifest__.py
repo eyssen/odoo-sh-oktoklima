@@ -16,6 +16,7 @@ Oktoklima Addon
         'views/product.xml',
         'views/currency.xml',
         'views/order.xml',
+        'report/order.xml',
     ],
     'installable': True,
     'application': True,
