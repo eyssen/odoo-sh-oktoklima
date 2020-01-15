@@ -41,8 +41,8 @@ class ProductTemplate(models.Model):
                 _logger.info('compute_okto_price ' + str(i))
             
             ProductSupplierinfo = self.env['product.supplierinfo'].browse(ProductTemplate['sid'])
-            supplier_price = ProductSupplierinfo.currency_id._convert(ProductTemplate['price'], ProductSupplierinfo.currency_id, self.env.user.company_id, fields.Date.today())
-
+            supplier_price = ProductSupplierinfo.currency_id._convert(ProductTemplate['price'], self.env.user.company_id.currency_id, self.env.user.company_id, fields.Date.today())
+            
             if 'discount' in ProductTemplate:
                 if ProductTemplate['discount'] and ProductTemplate['discount'] > 0:
                     standard_price = supplier_price * ProductTemplate['discount']
