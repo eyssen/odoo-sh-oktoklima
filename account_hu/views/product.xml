@@ -62,6 +62,8 @@
 			<field name="arch" type="xml">
 				<tree string="Környezetvédelmi termékdíj" editable="top">
 					<field name="name" />
+					<field name="code" />
+					<field name="type" />
 					<field name="vtsz_id" />
 					<field name="rate" />
 				</tree>

@@ -24,7 +24,7 @@ class AccountMove(models.Model):
     fulfillment_date = fields.Date(u'Teljesítés időpontja', readonly=True, states={'draft':[('readonly',False)]})
     currency_rate = fields.Float('Rate', readonly=True)
     intermediary_services = fields.Boolean(u'A számla közvetített szolgáltatást tartalmaz')
-    kvtd = fields.Boolean(u'A számla környezetvédelmi termékdíjat tartalmaz')
+    kvtd = fields.Boolean(u'A számla környezetvédelmi termékdíjat tartalmaz', default=True)
 
 
     def action_post(self):
