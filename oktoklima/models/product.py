@@ -96,6 +96,18 @@ class ProductTemplate(models.Model):
 
 
 
+class ProductProduct(models.Model):
+    
+    _inherit = 'product.product'
+
+
+    def compute_okto_price(self):
+        self.product_tmpl_id.compute_okto_price()
+
+
+
+
+
 class ProductFamily(models.Model):
     
     _name = 'product.family'
