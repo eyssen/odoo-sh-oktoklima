@@ -15,7 +15,7 @@
 			<field name="arch" type="xml">
 
 				<header>
-					<button type="object" name="wizard_merge_into_product" string="Új termék" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}" />
+					<button type="object" name="wizard_merge_into_product" string="Termék összevonás" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}" />
 				</header>
 
 			</field>
@@ -42,7 +42,12 @@
 							<field name="list_price" />
 							<field name="standard_price" />
 						</group>
-						<field name="description" />
+						<field name="line_ids">
+							<tree>
+								<field name="product_id" />
+								<field name="name" />
+							</tree>
+						</field>
 					</group>
 
 					<footer>

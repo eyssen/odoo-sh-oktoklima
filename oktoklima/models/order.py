@@ -44,19 +44,28 @@ class SaleOrderProductWizard(models.TransientModel):
     default_code = fields.Char(u'Új termék cikkszáma', required=True)
     order_id = fields.Many2one('sale.order', u'Árajánlat', required=True)
     list_price = fields.Float(u'Eladási ár', compute='_compute')
-    standard_price = fields.Float(u'Beszerzési ár')
-    description = fields.Text(u'Leírás', compute='_compute')
+    standard_price = fields.Float(u'Beszerzési ár', compute='_compute')
+    line_ids = fields.Many2many('sale.order.line', 'merge_product_rel', 'wizard_id', 'line_id', string='Sorok' , domain="[('order_id', '=', order_id),('product_id.product_tmpl_id.configured_product', '=', False)]")
     
     
-    @api.depends('order_id')
-    def _compute(self):
-
-        self.list_price = self.order_id.amount_untaxed * (1 / self.order_id.currency_rate)
+    @api.model
+    def default_get(self, fields):
         
-        description = ""
-        for line in self.order_id.order_line:
-            description += str(line.product_uom_qty) + ' ' + line.product_uom.name + ' ' + line.name + '\n'
-        self.description = description
+        vals = super(SaleOrderProductWizard, self).default_get(fields)
+        vals['line_ids'] = self.env['sale.order.line'].search([('order_id', '=', self._context.get('active_ids')[0]),('product_id.product_tmpl_id.configured_product', '=', False)]).ids
+        return vals
+
+
+    @api.depends('line_ids')
+    @api.onchange('line_ids')
+    def _compute(self):
+        list_price = 0
+        standard_price = 0
+        for line in self.line_ids:
+            list_price += line.product_id.list_price
+            standard_price += line.product_id.standard_price
+        self.list_price = list_price
+        self.standard_price = standard_price
 
 
     def action_create_product(self):
@@ -66,12 +75,16 @@ class SaleOrderProductWizard(models.TransientModel):
             'default_code': self.default_code,
             'list_price': self.list_price,
             'standard_price': self.standard_price,
-            'description': self.description,
+            'configured_product': True
         })
         ProductProduct = self.env['product.product'].search([('product_tmpl_id', '=', ProductTemplate.id)], limit=1)
-        
-        for line in self.order_id.order_line:
-            line.unlink()
+        for line in self.line_ids:
+            self.env['product.template.configured.component'].create({
+                'product_tmpl_id': ProductTemplate.id,
+                'product_comp_id': line.product_id.product_tmpl_id.id,
+                'qty': line.product_uom_qty
+            })
+            line.unlink();
         
         self.env['sale.order.line'].create({
             'order_id': self.order_id.id,

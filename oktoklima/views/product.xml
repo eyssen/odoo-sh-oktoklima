@@ -21,6 +21,27 @@
 				<field name="categ_id" position="after">
 					<field name="family_id" domain="[('categ_id', '=', categ_id)]" />
 				</field>
+				
+				<xpath expr="//div[@name='options']" position="inside">
+					<div>
+						<field name="configured_product" />
+						<label for="configured_product" />
+					</div>
+				</xpath>
+				
+				<notebook>
+					<page name="configured_components" string="Komponensek"
+						attrs="{'invisible': [('configured_product', '!=', True)]}">
+						<group>
+							<field name="configured_component_ids" nolabel="1">
+								<tree editable="top">
+									<field name="product_comp_id" domain="[('id', '!=', parent.id)]" />
+									<field name="qty" />
+								</tree>
+							</field>
+						</group>
+					</page>
+				</notebook>
 
             </field>
         </record>

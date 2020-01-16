@@ -16,6 +16,8 @@ class ProductTemplate(models.Model):
 
 
     family_id = fields.Many2one('product.family', u'Termékcsalád')
+    configured_product = fields.Boolean(u'Konfigurált termék')
+    configured_component_ids = fields.One2many('product.template.configured.component', 'product_tmpl_id', u'Összetevők')
     
     
     def compute_okto_price(self):
@@ -119,3 +121,21 @@ class ProductCategory(models.Model):
 
 
     list_price_margin = fields.Float(u'Eladási ár szorzó', default=0)
+
+
+
+
+
+class ProductTemplateConfiguredComponent(models.Model):
+    
+    _name = 'product.template.configured.component'
+    
+    
+    product_tmpl_id = fields.Many2one('product.template', u'Termék', required=True)
+    product_comp_id = fields.Many2one('product.template', u'Komponens', required=True)
+    qty = fields.Integer(u'Mennyiség', required=True)
+
+
+    _sql_constraints = [
+        ('comp_uniq', 'unique(product_tmpl_id, product_comp_id)', 'Egy komponens egy termékben csak egyszer szerepelhet!'),
+    ]
