@@ -22,6 +22,8 @@ class ProductTemplate(models.Model):
     
     def compute_okto_price(self):
         
+        ## Normál termékek
+        
         sql_query = """
             SELECT product_template.id, product_template.name, product_supplierinfo.id AS sid, product_supplierinfo.price,
                 product_family.discount, product_family.discount, product_product.id AS pid, list_price_margin
@@ -35,16 +37,16 @@ class ProductTemplate(models.Model):
             sql_query += " WHERE product_template.id=" + str(self.id)
         self.env.cr.execute(sql_query)
         ProductTemplateS = self.env.cr.dictfetchall()
-
+ 
         i = 0
         for ProductTemplate in ProductTemplateS:
             i += 1
             if i % 1000 == 0:
                 _logger.info('compute_okto_price ' + str(i))
-            
+             
             ProductSupplierinfo = self.env['product.supplierinfo'].browse(ProductTemplate['sid'])
             supplier_price = ProductSupplierinfo.currency_id._convert(ProductTemplate['price'], self.env.user.company_id.currency_id, self.env.user.company_id, fields.Date.today())
-            
+             
             if 'discount' in ProductTemplate:
                 if ProductTemplate['discount'] and ProductTemplate['discount'] > 0:
                     standard_price = supplier_price * ProductTemplate['discount']
@@ -52,7 +54,7 @@ class ProductTemplate(models.Model):
                     standard_price = supplier_price
             else:
                 standard_price = supplier_price
-            
+             
             # list_price
             list_price = standard_price * ProductTemplate['list_price_margin']
             sql_query = """
@@ -62,7 +64,7 @@ class ProductTemplate(models.Model):
             """
             params = (list_price, ProductTemplate['id'])
             self.env.cr.execute(sql_query, params)
-            
+             
             # standard_price
             res_id = 'product.product,'+str(ProductTemplate['pid'])
             sql_query = """
@@ -91,6 +93,17 @@ class ProductTemplate(models.Model):
                 """
                 params = (res_id, standard_price)
                 self.env.cr.execute(sql_query, params)
+        
+        ## Konfigurált termékek
+        
+        for ProductTemplate in self.env['product.template'].search([('configured_product', '!=', False)]):
+            list_price = 0
+            standard_price = 0
+            for line in ProductTemplate.configured_component_ids:
+                list_price += line.product_comp_id.list_price * line.qty
+                standard_price += line.product_comp_id.standard_price * line.qty
+            ProductTemplate.list_price = list_price
+            ProductTemplate.standard_price = standard_price
 
 
     def change_categ_from_family(self):
