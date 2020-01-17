@@ -33,6 +33,24 @@ class SaleOrder(models.Model):
 
 
 
+class SaleOrderLine(models.Model):
+    
+    _inherit = 'sale.order.line'
+    
+    
+    supplierinfo_popover = fields.Text(u'Supplierinfo PopOver', compute='_supplierinfo_popover', readonly=True)
+    
+    
+    @api.depends('product_id')
+    def _supplierinfo_popover(self):
+        for line in self:
+            supplierinfo_popover = ''
+            for s in line.product_id.seller_ids:
+                supplierinfo_popover += str(s.price) + ' ' + str(s.currency_id.name) + ' (' + str(s.name.name) + ')\n'
+            line.supplierinfo_popover = supplierinfo_popover
+
+
+
 
 
 class SaleOrderProductWizard(models.TransientModel):

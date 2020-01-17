@@ -1,0 +1,11 @@
+<templates>
+    <div t-name="oktoklima.supplierinfo">
+        <t t-if="widget.data.supplierinfo_popover">
+            <a tabindex="0" class="fa fa-info-circle text-primary"/>
+        </t>
+    </div>
+
+    <div t-name="oktoklima.supplierinfoPopOver">
+        <span t-esc="data.supplierinfo_popover"/>
+    </div>
+</templates>

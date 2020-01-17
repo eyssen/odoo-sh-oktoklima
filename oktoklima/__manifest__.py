@@ -18,6 +18,7 @@ Oktoklima Addon
         'views/order.xml',
         'report/order.xml',
     ],
+    'qweb': ['static/src/xml/supplierinfo.xml'],
     'installable': True,
     'application': True,
     'auto_install': False,
