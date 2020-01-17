@@ -93,6 +93,23 @@ class ProductTemplate(models.Model):
                 self.env.cr.execute(sql_query, params)
 
 
+    def change_categ_from_family(self):
+        
+        sql_query = """
+            SELECT product_template.id, product_family.categ_id
+            FROM product_template
+            JOIN product_family ON product_template.family_id=product_family.id
+            WHERE product_template.categ_id != product_family.categ_id
+        """
+        self.env.cr.execute(sql_query)
+        ProductTemplateS = self.env.cr.dictfetchall()
+        i = 0
+        for ProductTemplate in ProductTemplateS:
+            i += 1
+            self.env.cr.execute("UPDATE product_template SET categ_id=%s WHERE id=%s", (ProductTemplate['categ_id'], ProductTemplate['id']))
+        _logger.info('== Updated categ_id: ' + str(i))
+
+
 
 
 
