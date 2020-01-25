@@ -11,28 +11,32 @@
 				<field name="inherit_id" ref="sale.report_saleorder_document"/>
 				<field name="arch" type="xml">
 					<data>
+					
+						<xpath expr="//h2" position="replace">
+				            <h2 class="mt16" style="font-size: 30px;">
+				                <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
+				                    <span t-if="doc.state not in ['draft','sent']">Order # </span>
+				                    <span t-if="doc.state in ['draft','sent']">Quotation # </span>
+				                </t>
+				                <t t-if="env.context.get('proforma', False) or is_pro_forma">
+				                    <span>Pro-Forma Invoice # </span>
+				                </t>
+				                <span t-field="doc.name"/>
+				            </h2>
+						</xpath>
 
 						<xpath expr="//div[@id='informations']" position="after">
 							<div id="txt1" class="row">
 								<div class="col">
-									<strong>Tisztelt NÉV Uram!</strong><br/>
-									<br/>
-									A megkeresésükre hivatkozva, amelyet ezúttal is köszönünk, az alábbiakban ajánlatot adunk AERMEC gyártmányú berendezésekre.<br/>
-									<br/>
-									<strong>
-										1 Szállítási áraink<br/>
-										Az ajánlott berendezések nettó árai az alább részletezett szállítási terjedelemmel és műszaki tartalommal:
-									</strong><br/>
+									<span t-field="doc.quotation_str1"/>
 								</div>
 							</div>
 						</xpath>
 
-						<xpath expr="//table" position="after">
+						<xpath expr="//div[@name='so_total_summary']" position="after">
 							<div id="txt2" class="row">
 								<div class="col">
-									<strong>Az ajánlott berendezések részletezését lásd a melléklet adatlapokon.</strong><br/>
-									<br/>
-									Biztos hogy ide az összes többi szöveget fixen be kell másolni??
+									<span t-field="doc.quotation_str2"/>
 								</div>
 							</div>
 						</xpath>

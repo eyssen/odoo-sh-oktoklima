@@ -23,6 +23,15 @@
                     <field name="supplierinfo_popover" invisible="1"/>
                     <widget name="supplierinfo_widget" width="0.1"/>
                 </xpath>
+                
+                <notebook>
+                	<page name="quotation_strings" string="Ajánlat szöveg">
+                		<group>
+            				<field name="quotation_str1" nolabel="1" colspan="4" />
+            				<field name="quotation_str2" nolabel="1" colspan="4" />
+            			</group>
+                	</page>
+                </notebook>
 
 			</field>
 		</record>
