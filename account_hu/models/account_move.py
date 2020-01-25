@@ -140,37 +140,63 @@ class AccountMove(models.Model):
 
         return reverse_moves
 
+    
+    def _recalculate_kvtd_lines(self):
 
-    @api.depends('line_ids.price_subtotal', 'line_ids.tax_base_amount', 'line_ids.tax_line_id', 'partner_id', 'currency_id')
-    def _compute_invoice_taxes_by_group(self):
-        ''' Helper to get the taxes grouped according their account.tax.group.
-        This method is only used when printing the invoice.
-        '''
-        for move in self:
-            lang_env = move.with_context(lang=move.partner_id.lang).env
-            tax_lines = move.line_ids.filtered(lambda line: line.tax_line_id)
-            res = {}
-            # There are as many tax line as there are repartition lines
-            done_taxes = set()
-            for line in tax_lines:
-                res.setdefault(line.tax_line_id.tax_group_id, {'base': 0.0, 'amount': 0.0})
-                res[line.tax_line_id.tax_group_id]['amount'] += line.price_subtotal
-                tax_key_add_base = tuple(move._get_tax_key_for_group_add_base(line))
-                if tax_key_add_base not in done_taxes:
-                    # The base should be added ONCE
-                    res[line.tax_line_id.tax_group_id]['base'] += line.tax_base_amount
-                    done_taxes.add(tax_key_add_base)
-                res[line.tax_line_id.tax_group_id]['percent'] = line.tax_line_id.amount
-                res[line.tax_line_id.tax_group_id]['description'] = line.tax_line_id.description
-            res = sorted(res.items(), key=lambda l: l[0].sequence)
-            move.amount_by_group = [(
-                group.name,
-                amounts['amount'],
-                amounts['base'],
-                formatLang(lang_env, amounts['amount'], currency_obj=move.currency_id),
-                formatLang(lang_env, amounts['base'], currency_obj=move.currency_id),
-                len(res),
-                group.id,
-                formatLang(lang_env, amounts['amount']+amounts['base'], currency_obj=move.currency_id),
-                amounts['description'],
-            ) for group, amounts in res]
+        if self.kvtd:
+            for invoice_line in self.invoice_line_ids:
+                if invoice_line.product_id.kvtd_ids:
+                    if not invoice_line.kvtd_ids:
+                        _logger.info('CREATE')
+                        for product_kvtd_line in invoice_line.product_id.kvtd_ids:
+                            self.env['account.move.line.kvtd'].sudo().create({
+                                'line_id': invoice_line.id,
+                                'kvtd_id': product_kvtd_line.kvtd_id.id,
+                                'weight': product_kvtd_line.weight * invoice_line.quantity,
+                                'rate': product_kvtd_line.weight * invoice_line.quantity * product_kvtd_line.kvtd_id.rate
+                            })
+                    else:
+                        _logger.info('UPDATE')
+                        #TODO: ezt meg kell csinálni
+
+        else:
+            _logger.info('DELETE')
+            l = self.env['account.move.line.kvtd'].search([('line_id.move_id', '=', self.id)])
+            l.unlink()
+
+    @api.model_create_multi
+    def create(self, vals):
+        line = super(AccountMove, self).create(vals)
+        self._recalculate_kvtd_lines()
+        return line
+
+
+    def write(self, vals):
+        result = super(AccountMove, self).write(vals)       
+        self._recalculate_kvtd_lines()
+        return result
+ 
+
+
+
+class AccountMoveLine(models.Model):
+    
+    _inherit = 'account.move.line'
+    
+    
+    kvtd_ids = fields.One2many('account.move.line.kvtd', 'line_id', u'Sorok', readonly=True)
+    kvtd = fields.Boolean(u'A számla környezetvédelmi termékdíjat tartalmaz', readonly=True, related='move_id.kvtd')
+
+
+
+
+
+class AccountMoveLineKvtd(models.Model):
+    
+    _name = 'account.move.line.kvtd'
+    
+    
+    line_id = fields.Many2one('account.move.line', u'Számlasor', required=True)
+    kvtd_id = fields.Many2one('kvtd', u'KVTD', required=True)
+    weight = fields.Float(u'Súly (kg)', required=True)
+    rate = fields.Float(u'Díjtétel (Ft)', required=True)

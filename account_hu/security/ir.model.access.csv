@@ -7,3 +7,4 @@ access_kvtd_user,kvtd.user,model_kvtd,base.group_user,1,0,0,0
 access_kvtd_manager,kvtd.manager,model_kvtd,base.group_system,1,1,1,1
 access_product_kvtd_user,product.kvtd.user,model_product_kvtd,base.group_user,1,0,0,0
 access_product_kvtd_manager,product.kvtd.manager,model_product_kvtd,base.group_system,1,1,1,1
+access_account_move_line_kvtd_user,account.move.line.kvtd.user,model_account_move_line_kvtd,base.group_user,1,0,0,0
