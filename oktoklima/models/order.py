@@ -15,6 +15,11 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
     
     
+    partner_contact_id = fields.Many2one(
+        'res.partner', string='Kapcsolattartó',
+        readonly=True,
+        states={'draft': [('readonly', False)], 'sent': [('readonly', False)], 'sale': [('readonly', False)]},
+        domain="[('parent_id', '=', partner_id)]",)
     quotation_str1 = fields.Html(u'Ajánlat szöveg 1', default="""
         <strong>Tisztelt Hölgyem/Uram!</strong><br/>
         <br/>

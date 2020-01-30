@@ -17,6 +17,11 @@
 				<header>
 					<button type="object" name="wizard_merge_into_product" string="Termék összevonás" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}" />
 				</header>
+				
+				<field name="partner_shipping_id" position="after">
+					<field name="partner_contact_id"
+						context="{'default_type': 'contact'}"/>
+				</field>
 
                 <xpath expr="//page/field[@name='order_line']/tree/field[@name='price_unit']" position="after">
                     <!-- below fields are used in the widget supplierinfo_widget -->
