@@ -1,5 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_product_family_user,product.family.user,model_product_family,base.group_user,1,1,1,1
+access_product_family_user,product.family.user,model_product_family,base.group_user,1,1,1,0
 access_product_family_manager,product.family.manager,model_product_family,base.group_system,1,1,1,1
-access_product_template_configured_component_user,product.template.configured.component.user,model_product_template_configured_component,base.group_user,1,1,1,1
+access_product_template_configured_component_user,product.template.configured.component.user,model_product_template_configured_component,base.group_user,1,1,1,0
 access_product_template_configured_component_manager,product.template.configured.component.manager,model_product_template_configured_component,base.group_system,1,1,1,1
