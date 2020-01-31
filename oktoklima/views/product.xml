@@ -111,7 +111,7 @@
 			</field>
 		</record>
 
-		<menuitem action="product_family_action" parent="sale.menu_sale_general_settings" id="menu_product_family" />
+		<menuitem action="product_family_action" parent="sale.menu_sale_config" id="menu_product_family" />
 
 
 
