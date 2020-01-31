@@ -35,17 +35,18 @@ class SaleOrder(models.Model):
         <strong>Az ajánlott berendezések részletezését lásd a melléklet adatlapokon.</strong><br/>
         <br/>
         <ul>
-            <li>Az ajánlati áraink 30 napig érvényesek</li>
             <li>Szállítás és az árú átvétele alapesetben a központi raktárunkban történik. Amennyiben az áraink nettó 3 000 000 Ft vásárlási értéket meghaladják, akkor tartalmazzák a szállítást a Megrendelő telephelyére, az alábbi 4. pontban részletezettek szerint. Raktárunkból való helyszínre szállítás átfutási ideje további 2-3 nap.</li> 
             <li>Az ajánlatunk az üzembe helyezési díjakat az alábbi 5. pontban részletezettek szerint tartalmazza</li>
         </ul>
         <br/>
-        <strong>2 Fizetés</strong><br/>
-        <ul>
-            <li>Euróban, átutalással</li>
-            <li>előleg 30 % megrendeléskor, a fennmaradó összeget átvételt megelőzően átutalással</li>
-            <li>előleg 0 %, a teljes összeget átvételt követően 8 napon belül</li>
-        </ul>
+        <strong>2. Garnciális ajánlat</strong><br/>
+        A berendezésekre, az átvételtől számított 24 hónapra kiterjedő garanciát vállalunk,  amennyiben a beüzemelés általunk felhatalmazott márkaszerviz végzi és az üzemeltetés a műszaki leírásnak és a kezelési utasításnak megfelelően történik.<br/>
+        <br/>
+        Garanciális kötelezettségünk megszűnik, ha az átadott berendezésen, vagy annak beállításán illetéktelen személy, előzetes írásbeli engedélyünk nélkül, változtatásokat hajt végre, illetve engedély nélkül beüzemeli, feszültség alá helyezi, hűtőközeg oldali bármilyen szerelést, beavatkozást végez, beleértve a nem megfelelő csővezetékek szerelését osztott rendszerű berendezéseknél. A vízzel működő berendezések elfagyása esetén történő károsodás nem tartozik a garanciális vállalásunk alá, ugyanis a berendezés rendeltetés szerinti használatához hozzátartozik a fagyvédelem biztosítása a felhasználó részéről.<br/>
+        <br/>
+        A 24 hónapos garancia feltétele, hogy minden hűtési, hőszivattyúknál fűtési, időszak megkezdése előtt a leszállított berendezéseket AERMEC márkaszerviz a rendes karbantartás keretében átvizsgálja, megtisztítsa, a szükséges karbantartási munkálatokat elvégezze, és tevékenységét jegyzőkönyvbe foglalja. Ezen munkálatok nem tartoznak a garanciális vállalás alá, elmaradása esetén a garanciális időszak 12 hónapra módosul. A garancia nem vonatkozik a rendeltetés szerinti használat során szükségszerűen elhasználódó berendezésekre és alkatrészekre.<br/>
+        <br/>
+        Garanciális feltételként, és a biztonságos üzemeltetés végett beüzemelés szükséges minden folyadékhűtő, légkezelő, hőszivattyú, hűtőközeget tartalmazó egyéb berendezés, párásító, ipari párátlanító esetében.<br/>
         <br/>
         <strong>3. Szállítási határidő</strong><br/>
         <ul>
@@ -105,16 +106,7 @@ class SaleOrder(models.Model):
         <br/>
         Amennyiben az üzembe-helyezés a megrendelő hibájából nem valósul meg, vagy a berendezés nincs olyan állapotban, hogy biztonságosan, a berendezés állagát nem veszélyeztetve beüzemelhető legyen, akkor a meghiúsult beüzemelési kiszállás díját érvényesítjük, és kiszámlázzuk.<br/>
         <br/>
-        <strong>6. Garnciális ajánlat</strong><br/>
-        A berendezésekre, az átvételtől számított 24 hónapra kiterjedő garanciát vállalunk,  amennyiben a beüzemelés általunk felhatalmazott márkaszerviz végzi és az üzemeltetés a műszaki leírásnak és a kezelési utasításnak megfelelően történik.<br/>
-        <br/>
-        Garanciális kötelezettségünk megszűnik, ha az átadott berendezésen, vagy annak beállításán illetéktelen személy, előzetes írásbeli engedélyünk nélkül, változtatásokat hajt végre, illetve engedély nélkül beüzemeli, feszültség alá helyezi, hűtőközeg oldali bármilyen szerelést, beavatkozást végez, beleértve a nem megfelelő csővezetékek szerelését osztott rendszerű berendezéseknél. A vízzel működő berendezések elfagyása esetén történő károsodás nem tartozik a garanciális vállalásunk alá, ugyanis a berendezés rendeltetés szerinti használatához hozzátartozik a fagyvédelem biztosítása a felhasználó részéről.<br/>
-        <br/>
-        A 24 hónapos garancia feltétele, hogy minden hűtési, hőszivattyúknál fűtési, időszak megkezdése előtt a leszállított berendezéseket AERMEC márkaszerviz a rendes karbantartás keretében átvizsgálja, megtisztítsa, a szükséges karbantartási munkálatokat elvégezze, és tevékenységét jegyzőkönyvbe foglalja. Ezen munkálatok nem tartoznak a garanciális vállalás alá, elmaradása esetén a garanciális időszak 12 hónapra módosul. A garancia nem vonatkozik a rendeltetés szerinti használat során szükségszerűen elhasználódó berendezésekre és alkatrészekre.<br/>
-        <br/>
-        Garanciális feltételként, és a biztonságos üzemeltetés végett beüzemelés szükséges minden folyadékhűtő, légkezelő, hőszivattyú, hűtőközeget tartalmazó egyéb berendezés, párásító, ipari párátlanító esetében.<br/>
-        <br/>
-        <strong>7. Minőség</strong><br/>
+        <strong>6. Minőség</strong><br/>
         Minden AERMEC berendezés, a végellenőrzést megelőzően, már az alkatrészeinek a részgyártása különösen gondos ellenőrzésen esik át. Ezáltal garantálható, hogy már az alkatrészek is megfelelnek a magas minőségi követelményeknek, és nem kell attól tartani, hogy a már összeszerelt végtermék ellenőrzéskor kiderül, valamelyik komponens nem megfelelő.<br/>
         <br/>
         Fan coilokat magasan automatizált gyártósorokon illetve robotok gyártják, szerelik össze, és csomagolják. Ennek megfelelően nagyon kicsi a valószínűsége a hibás készülék gyártásának. Az Európában egyedülálló robotizált gyártósor, állandó jó minőségű végterméket, gyors szállítási határidőt és nagyobb gyártási kapacitást jelent.<br/>
@@ -127,10 +119,10 @@ class SaleOrder(models.Model):
         Ezáltal teljességgel megbizonyosodik, hogy a berendezés nem csak hogy működőképes, hanem a névleges adatok szerinti zaj, elektromos, kalorikus tulajdonságokkal rendelkeznek.<br/>
         A klímatechnikai gyártók közt a legaprólékosabb minőség ellenőrzésével rendelkező AERMEC gyár minősége ezáltal a legmagasabb kategóriába sorolja a termékeket.<br/>
         <br/>
-        <strong>8. Tervezés</strong><br/>
+        <strong>7. Tervezés</strong><br/>
         Az ajánlatunk nem tartalmazza a berendezések telepítéséhez szükséges semmilyen tervdokumentáció elkészítését, és a tervezést nem helyettesíti. Az ajánlatunkat a rendelkezésünkre bocsátott műszaki adatok figyelembevételével állítottuk össze. Amennyiben változások történnek, kérjük, értesítsenek, hogy az ajánlatunkat aktualizálhassuk. A berendezések hibás alkalmazásából, ill. rendszerbe építéséből adódó károkért nem vállalunk felelősséget.<br/>
         <br/>
-        <strong>9. Vállalási feltételek</strong><br/>
+        <strong>8. Vállalási feltételek</strong><br/>
         <ul>
             <li>Az ajánlatban nem szabályzott kondíciók az "Oktoklima Kft. Általános Szerződési Feltételei"- ben rögzítettek szerint érvényesek</li>
             <li>Az ajánlatunk szerinti Megrendelést az ajánlatban szereplő kondíciók és az Általános Szerződési Feltételek elfogadásának tekintjük, és a továbbiakban Szállítási Szerződésként kezeljük.</li>
@@ -143,7 +135,7 @@ class SaleOrder(models.Model):
             <li>Az átvétel után a berendezések őrzése és szakszerű tárolása a Megrendelő feladata, az ebből eredő károkra és meghibásodásokra felelősséget nem vállalunk.</li>
         </ul>
         <br/>
-        <strong>10. Szerződésszegés esetén alkalmazandó szabályok</strong><br/>
+        <strong>9. Szerződésszegés esetén alkalmazandó szabályok</strong><br/>
         <ul>
             <li>Aki a szerződést megszegi, kártérítési felelősséggel tartozik, kivéve, ha bizonyítja, hogy a szerződés teljesítése érdekében úgy járt el, ahogy a gazdálkodó szervezettől az adott helyzetben általában elvárható.</li>
             <li>A szerződésszegés következményei alól nem mentesít az a körülmény, hogy a szerződésszegést a gazdálkodó szervezet irányítására, felügyeletére jogosult szerv intézkedése okozta.</li>
