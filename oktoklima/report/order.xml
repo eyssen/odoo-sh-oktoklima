@@ -226,4 +226,39 @@
 
 
 
+
+
+	<record id="external_layout_boxed_oktoklima" model="ir.ui.view">
+			<field name="name">external_layout_boxed</field>
+			<field name="model" eval="False" />
+			<field name="inherit_id" ref="web.external_layout_boxed"/>
+			<field name="arch" type="xml">
+				<data>
+				
+					<xpath expr="//div[@class='footer o_boxed_footer']" position="replace">
+					
+				        <div class="footer o_boxed_footer">
+				            <div class="text-center">
+				                <ul class="list-inline">
+				                    <li t-if="company.phone" class="list-inline-item">Tel: <span t-field="company.phone"/></li>
+				                    <li t-if="company.email" class="list-inline-item">Mail: <span t-field="company.email"/></li>
+				                    <li t-if="company.website" class="list-inline-item">Web: <span t-field="company.website"/></li>
+				                </ul>
+				                <div t-field="company.report_footer"/>
+				                <div t-if="report_type == 'pdf'">
+				                    <span class="page"/> / <span class="topage"/> oldal
+				                </div>
+				            </div>
+				        </div>
+					
+					</xpath>
+
+				</data>
+			</field>
+	</record>
+
+
+
+
+
 </odoo>
