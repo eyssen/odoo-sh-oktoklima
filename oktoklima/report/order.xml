@@ -197,7 +197,7 @@
 				
 				            <div t-if="doc.signature" class="mt32 ml64 mr4" name="signature">
 				                <div class="offset-8">
-				                    <strong>Signature</strong>
+				                    <strong>Tisztelettel:</strong>
 				                </div>
 				                <div class="offset-8">
 				                    <img t-att-src="image_data_uri(doc.signature)" style="max-height: 4cm; max-width: 8cm;"/>

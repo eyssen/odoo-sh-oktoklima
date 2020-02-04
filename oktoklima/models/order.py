@@ -150,6 +150,9 @@ class SaleOrder(models.Model):
             <li>Tartós nemfizetés esetén az Oktoklíma Kft. a követelést átadja követeléskezelő partnereinek. Ha a kérdéses kötelezettség az Oktoklima Kft.-től a követelésbehajtó partnereihez kerül át a PTK szerinti behajtásra, a követelésbehajtás költségei a nem fizető ügyfelet terhelik, amely a követelésbehajtó partner által kibocsátott számlán jelennek meg terhelésként.</li>
             <li>A Megrendelő hozzájárul ahhoz, hogy a számla lejáratától számított 90 napon túli nem fizetés esetén a Szállító inkasszó igényt nyújtson be a fent jelölt banknál vezetett bankszámlájára. Ezzel Megrendelő felhatalmazza a számlavezető bankját, hogy Oktoklíma Kft.-val szembeni tartozás erejéig számláját inkasszóval terheljék.</li>
         </ul>
+        <br/>
+        Az ajánlatunkkal kapcsolatban felmerülő kérdések esetén készséggel rendelkezésükre állunk. Az ajánlatunkat a rendelkezésünkre bocsátott műszaki adatok szerint, a terv és helyszín ismerete nélkül, állítottuk össze, amennyiben változások történnek, kérjük, jelezzék felénk!<br/>
+        <br/>
     """)
 
 
