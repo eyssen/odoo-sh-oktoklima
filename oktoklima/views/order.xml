@@ -18,6 +18,8 @@
 					<button type="object" name="wizard_merge_into_product" string="Termék összevonás" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}" />
 				</header>
 				
+				<button name="preview_sale_order" position="replace" />
+				
 				<field name="partner_shipping_id" position="after">
 					<field name="partner_contact_id"
 						context="{'default_type': 'contact'}"/>
