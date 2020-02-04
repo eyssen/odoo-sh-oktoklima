@@ -27,7 +27,7 @@ class SaleOrder(models.Model):
         <br/>
         <strong>
             1. Szállítási áraink<br/>
-            Az ajánlott berendezések nettó árai az alább részletezett szállítási terjedelemmel és műszaki tartalommal:<br/>
+            Az ajánlott berendezések árai az alább részletezett szállítási terjedelemmel és műszaki tartalommal:<br/>
         </strong>
         <br/>
     """)
