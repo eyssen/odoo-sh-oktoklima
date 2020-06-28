@@ -234,7 +234,7 @@
 			<field name="arch" type="xml">
 				<data>
 				
-					<xpath expr="//div[@class='footer o_boxed_footer o_company_#{company.id}_layout']" position="replace">
+					<xpath expr="//div[3]" position="replace">
 					
 				        <div class="footer o_boxed_footer o_company_#{company.id}_layout">
 				            <div class="text-center">
