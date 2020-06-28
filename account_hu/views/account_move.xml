@@ -18,17 +18,11 @@
 
 								<field name="ref" position="after">
 										<field name="intermediary_services"/>
-										<field name="kvtd"/>
 								</field>
 
 								<field name="currency_id" position="after">
 										<field name="currency_rate"/>
 								</field>
-						
-								<notebook>
-									<page name="kvtd" string="KVTD" attrs="{'invisible': [('kvtd', '==', False)]}">
-									</page>
-								</notebook>
 								
 								<xpath expr="//field[@name='invoice_line_ids']/form" position="replace">
                                     <form>
@@ -55,16 +49,6 @@
                                             <label for="name" string="Section" attrs="{'invisible': [('display_type', '!=', 'line_section')]}"/>
                                             <label for="name" string="Note" attrs="{'invisible': [('display_type', '!=', 'line_note')]}"/>
                                             <field name="name"/>
-                                            <field name="kvtd" invisible="1" />
-                                            <group string="Környezetvédelmi termékdíj" attrs="{'invisible': [('kvtd', '=', False)]}">
-	                                        	<field name="kvtd_ids" nolabel="1">
-	                                        		<tree>
-	                                        			<field name="kvtd_id" />
-	                                        			<field name="weight" />
-	                                        			<field name="rate" />
-	                                        		</tree>
-	                                        	</field>
-                                        	</group>
                                         </sheet>
                                     </form>
 								</xpath>
