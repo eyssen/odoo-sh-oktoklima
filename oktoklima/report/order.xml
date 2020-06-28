@@ -234,9 +234,9 @@
 			<field name="arch" type="xml">
 				<data>
 				
-					<xpath expr="//div[@class='footer o_boxed_footer']" position="replace">
+					<xpath expr="//div[@class='footer o_boxed_footer o_company_#{company.id}_layout']" position="replace">
 					
-				        <div class="footer o_boxed_footer">
+				        <div class="footer o_boxed_footer o_company_#{company.id}_layout">
 				            <div class="text-center">
 				                <ul class="list-inline">
 				                    <li t-if="company.phone" class="list-inline-item">Tel: <span t-field="company.phone"/></li>
