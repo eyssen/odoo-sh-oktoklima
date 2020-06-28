@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+
+
+
+
+		<!-- Product Template -->
+
+		<record id="product_template_form_view" model="ir.ui.view">
+			<field name="name">product.template.form.view</field>
+			<field name="model">product.template</field>
+			<field name="inherit_id" ref="product.product_template_form_view" />
+			<field name="arch" type="xml">
+			
+				<notebook>
+					<page name="kvtd" string="KVTD">
+						<group>
+							<field name="kvtd_ids" nolabel="1">
+								<tree editable="top">
+									<field name="kvtd_id" />
+									<field name="weight" />
+								</tree>
+							</field>
+						</group>
+					</page>
+				</notebook>
+				
+			</field>
+		</record>
+
+
+
+
+
+		<!-- KVTD -->
+
+		<record id="view_kvtd_tree" model="ir.ui.view">
+			<field name="name">kvtd.tree</field>
+			<field name="model">kvtd</field>
+			<field name="arch" type="xml">
+				<tree string="Környezetvédelmi termékdíj" editable="top">
+					<field name="name" />
+					<field name="code" />
+					<field name="type" />
+					<field name="vtsz_id" />
+					<field name="rate" />
+				</tree>
+			</field>
+		</record>
+		
+		<record id='kvtd_action' model='ir.actions.act_window'>
+			<field name="name">Környezetvédelmi termékdíj</field>
+			<field name="res_model">kvtd</field>
+			<field name="view_mode">tree</field>
+		</record>
+
+		<menuitem action="kvtd_action" parent="account.menu_finance_configuration" id="menu_kvtd" />
+
+
+		
+		
+
+	</data>
+</openerp>
