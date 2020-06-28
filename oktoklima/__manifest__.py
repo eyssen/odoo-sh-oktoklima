@@ -17,7 +17,7 @@ Oktoklima Addon
         'views/currency.xml',
         'views/order.xml',
         'views/account.xml',
-        'report/order.xml',
+        #'report/order.xml',
     ],
     'qweb': ['static/src/xml/supplierinfo.xml'],
     'installable': True,
