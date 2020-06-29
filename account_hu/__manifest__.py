@@ -17,6 +17,7 @@
         'views/partner.xml',
         'views/account_move.xml',
         'views/product.xml',
+        'views/account.xml',
         #'views/stock.xml',
         #'views/merge_bank_statement.xml',
         'report/report.xml',

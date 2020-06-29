@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+
+
+
+
+		<!-- Account Move -->
+
+		<record id="account_move_tree_view" model="ir.ui.view">
+			<field name="name">account.move.tree</field>
+			<field name="model">account.move</field>
+			<field name="inherit_id" ref="account.view_invoice_tree" />
+			<field name="arch" type="xml">
+
+				<field name="amount_untaxed_signed" position="before">
+					<field name="amount_untaxed" groups="base.group_multi_currency" />
+					<field name="amount_total" groups="base.group_multi_currency" />
+					<field name="amount_residual" groups="base.group_multi_currency" />
+				</field>
+
+			</field>
+		</record>
+
+
+
+
+
+	</data>
+</openerp>
