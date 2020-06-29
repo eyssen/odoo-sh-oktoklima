@@ -175,3 +175,13 @@ class AccountMove(models.Model):
                 formatLang(lang_env, amounts['amount']+amounts['base'], currency_obj=move.currency_id),
                 amounts['description'],
             ) for group, amounts in res]
+
+
+    @api.onchange('currency_id')
+    def _onchange_currency(self):
+        Bank = self.env['res.partner.bank'].search([
+            ('partner_id', '=', self.company_id.partner_id.id),
+            ('currency_id', '=', self.currency_id.id),
+        ], limit=1)
+        if Bank:
+            self.invoice_partner_bank_id = Bank.id
