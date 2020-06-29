@@ -55,27 +55,29 @@ class AccountMove(models.Model):
                 raise UserError(_("Nincs beállítva fizetési feltétel!"))
             if not self.invoice_date:
                 raise UserError(_("Nincs megadva a számla kelte!"))
-            if self.invoice_date < fields.Date.today():
-                raise UserError(_("A számla kelte nem lehet múlt beli időpont!"))
+            if self.invoice_date != fields.Date.today():
+                raise UserError(_("A számla kelte csak a mai nap lehet!"))
             if not self.fulfillment_date:
                 raise UserError(_("Nincs megadva a teljesítés időpontja!"))
             if not self.invoice_partner_bank_id:
                 raise UserError(_("Nincs megadva bankszámla!"))
-            if not self.currency_rate:
-                #TODO: a kerekítést a valuta alapján kéne csinálni
-                if self.fiscal_position_id:
-                    # Árfolyam: számla kelte alapján (meg van adva költségvetési pozíció)
+
+        if not self.currency_rate:
+            #TODO: a kerekítést a valuta alapján kéne csinálni
+            #TODO: 60 napnál régebbi teljesítésű számlákat még le kell kezelni
+            if self.fiscal_position_id:
+                # Árfolyam: számla kelte alapján (meg van adva költségvetési pozíció)
+                currency_id = self.currency_id.with_context(date=self.invoice_date)
+                self.currency_rate = round(currency_id._convert(1, self.company_id.currency_id, self.company_id, self.invoice_date), 2)
+            else:
+                if self.fulfillment_date > self.invoice_date:
+                    # Árfolyam: számla kelte alapján (jövőbeni teljesítés)
                     currency_id = self.currency_id.with_context(date=self.invoice_date)
                     self.currency_rate = round(currency_id._convert(1, self.company_id.currency_id, self.company_id, self.invoice_date), 2)
                 else:
-                    if self.fulfillment_date > self.invoice_date:
-                        # Árfolyam: számla kelte alapján (jövőbeni teljesítés)
-                        currency_id = self.currency_id.with_context(date=self.invoice_date)
-                        self.currency_rate = round(currency_id._convert(1, self.company_id.currency_id, self.company_id, self.invoice_date), 2)
-                    else:
-                        # Árfolyam: teljesítés időpontja alapján (normál számla)
-                        currency_id = self.currency_id.with_context(date=self.fulfillment_date)
-                        self.currency_rate = round(currency_id._convert(1, self.company_id.currency_id, self.company_id, self.fulfillment_date), 2)
+                    # Árfolyam: teljesítés időpontja alapján (normál számla)
+                    currency_id = self.currency_id.with_context(date=self.fulfillment_date)
+                    self.currency_rate = round(currency_id._convert(1, self.company_id.currency_id, self.company_id, self.fulfillment_date), 2)
 
         return self.post()
 
