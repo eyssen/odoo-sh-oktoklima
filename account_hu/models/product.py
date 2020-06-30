@@ -26,6 +26,8 @@ class product_template(models.Model):
                     template.list_price_gross = template.list_price * (100 + template.taxes_id[0].amount) / 100
                 else:
                     template.list_price_gross = 0
+            else:
+                template.list_price_gross = 0
 
 
 
