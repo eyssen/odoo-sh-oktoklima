@@ -21,10 +21,11 @@ class product_template(models.Model):
     @api.depends('list_price', 'taxes_id')
     def _compute_gross_price(self):
         for template in self:
-            if template.taxes_id[0].amount_type == 'percent':
-                template.list_price_gross = template.list_price * (100 + template.taxes_id[0].amount) / 100
-            else:
-                template.list_price_gross = 0
+            if template.taxes_id:
+                if template.taxes_id[0].amount_type == 'percent':
+                    template.list_price_gross = template.list_price * (100 + template.taxes_id[0].amount) / 100
+                else:
+                    template.list_price_gross = 0
 
 
 
