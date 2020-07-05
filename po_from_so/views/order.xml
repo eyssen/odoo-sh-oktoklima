@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+
+
+
+
+		<!-- Sale Order -->
+
+		<record id="sale_order_form_view" model="ir.ui.view">
+			<field name="name">sale.order.form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+
+				<header>
+					<button type="object" name="action_create_po" string="Create PO" />
+				</header>
+
+				<xpath expr="//div[@class='oe_button_box']" position="inside">
+					<button name="action_view_pos" type="object"
+						class="oe_stat_button" icon="fa-shopping-cart"
+						attrs="{'invisible': [('po_ids_nbr', '=', 0)]}">
+						<field name="po_ids_nbr" widget="statinfo" string="Purchases"/>
+					</button>
+				</xpath>
+
+			</field>
+		</record>
+
+
+
+
+
+		<!-- Purchase Order -->
+
+		<record id="purchase_order_form_view" model="ir.ui.view">
+			<field name="name">purchase.order.form</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form" />
+			<field name="arch" type="xml">
+
+				<field name="date_approve" position="after">
+					<field name="so_id" />
+				</field>
+				
+			</field>
+		</record>
+
+
+
+
+
+	</data>
+</openerp>
