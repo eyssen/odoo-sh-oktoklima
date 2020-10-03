@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+
+
+
+
+		<!-- Invoice -->
+
+		<record id="move_form_view" model="ir.ui.view">
+			<field name="name">account.move.form</field>
+			<field name="model">account.move</field>
+			<field name="inherit_id" ref="account.view_move_form" />
+			<field name="arch" type="xml">
+
+				<field name="currency_id" position="replace">
+					<field name="show_update_currency" invisible="1"/>
+					<label for="currency_id" />
+					<div groups="base.group_multi_currency" class="o_row">
+					<field name="currency_id" groups="base.group_multi_currency" attrs="{'invisible': [('type', 'not in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))]}"/>
+					<button name="update_prices" type="object"
+						string=" Update Prices"
+						help="Recompute all prices based on this currency"
+						class="btn-link mb-1 px-0" icon="fa-refresh"
+						confirm="This will update all unit prices based on the currently set cirrency."
+						attrs="{'invisible': ['|', ('show_update_currency', '=', False), ('state', 'in', ['sale', 'done','cancel'])]}"/>
+					</div>
+				</field>
+
+			</field>
+		</record>
+
+
+
+
+
+	</data>
+</openerp>

@@ -44,8 +44,8 @@
 
 					<!-- Title -->
 					<div class="invoice-title">
-						<h1 t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">SZÁMLA</h1>
-						<h2 t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">(INVOICE)</h2>
+						<h1 t-if="o.type == 'out_invoice' and o.state == 'posted'">SZÁMLA</h1>
+						<h2 t-if="o.type == 'out_invoice' and o.state == 'posted'">(INVOICE)</h2>
 						<h1 t-if="o.type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA SZÁMLA</h1>
 						<h2 t-if="o.type == 'out_invoice' and o.state == 'proforma2'">(PRO-FORMA)</h2>
 						<h1 t-if="o.type == 'out_invoice' and o.state == 'draft'">SZÁMLATERVEZET</h1>

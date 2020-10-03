@@ -176,6 +176,7 @@ class AccountMove(models.Model):
                 group.id,
                 formatLang(lang_env, amounts['amount']+amounts['base'], currency_obj=move.currency_id),
                 amounts['description'],
+                amounts['percent'],
             ) for group, amounts in res]
 
 

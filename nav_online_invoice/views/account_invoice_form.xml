@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="invoice_form_nav">
+        <field name="name">account.move.nav.form.hu</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="model">account.move</field>
+        <field name="arch" type="xml">
+            <data>
+
+
+                <xpath expr="//notebook" position="inside">
+                  <page string="NAV" name="nav_info">
+                      <group>
+                        <group>
+                          <field name="nav_no" readonly="1"/>
+                          <field name="nav_no_reason" readonly="1"/>
+                          <!-- <field name="nav_no" attrs="{'readonly': [ ('state', 'not in', ['draft'])]}"/> -->
+                          <field name="nav_send_date" readonly="1"/>
+                          <field name="nav_send_result" readonly="1"/>
+                          <field name="nav_check_result" readonly="1"/>
+                          <field name="nav_transaction_id" readonly="1"/>
+                          <field name="nav_message" readonly="1"/>
+                          
+
+                          <button type="object" name="nav_send" string="Send to Nav" class="oe_highlight"/>
+                          <button type="object" name="nav_check" string="Check status" class="oe_highlight"/>
+                          
+                          <field name="nav_xml" readonly="1"/>
+                          <button type="object" name="nav_get" string="Get from Nav" class="oe_highlight"/>
+                          <!--<button type="object" name="prepareInvoiceXml" string="Prepare Invoice xml" class="oe_highlight"/>-->
+                        </group>
+                      </group>
+                  </page>
+                </xpath>
+
+
+            </data>
+        </field>
+    </record>
+
+
+</odoo>

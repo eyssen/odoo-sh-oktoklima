@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="nav_online_invoice_report_xml_view">
+        <t t-call="report_xml.utf8_header">
+            <t t-set="invoice" t-value="docs[0]"/>
+            <t t-if="invoice.type=='out_refund'">
+              <t t-set="refund_invoice" t-value="docs[1]"/>
+            </t>
+			<InvoiceData xmlns="http://schemas.nav.gov.hu/OSA/2.0/data" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.nav.gov.hu/OSA/2.0/data invoiceData.xsd">
+				<invoiceNumber t-esc="invoice.name"/>
+				<invoiceIssueDate t-esc="invoice.invoice_date"/>
+				<invoiceMain>
+					<invoice>
+						<t t-if="invoice.type=='out_refund'">
+							<invoiceReference>
+								<originalInvoiceNumber t-esc="refund_invoice.name"/>
+								<modifyWithoutMaster>false</modifyWithoutMaster>
+								<modificationIndex>1</modificationIndex>
+							</invoiceReference>
+						</t>
+						<invoiceHead>
+							<supplierInfo>
+								<supplierTaxNumber>
+									<t t-set="vat_hu" t-value="invoice.company_id.partner_id.vat_hu.split('-')"/>
+									<taxpayerId t-esc="vat_hu[0]"/>
+									<vatCode t-esc="vat_hu[1]"/>
+									<countyCode t-esc="vat_hu[2]"/>
+								</supplierTaxNumber>
+								<supplierName t-esc="invoice.company_id.name"/>
+								<supplierAddress>
+									<detailedAddress>
+										<countryCode t-esc="invoice.company_id.partner_id.country_id.code"/>
+										<postalCode t-esc="invoice.company_id.partner_id.zip"/>
+										<city t-esc="invoice.company_id.partner_id.city"/>
+										<streetName t-esc="invoice.company_id.partner_id.street"/>
+										<publicPlaceCategory>.</publicPlaceCategory>
+										<number t-esc="invoice.company_id.partner_id.street2 or '.'"/>
+									</detailedAddress>
+								</supplierAddress>
+							</supplierInfo>
+							<customerInfo>
+								<customerTaxNumber>
+									<t t-set="customer_vat_hu" t-value="invoice.partner_id.vat_hu.split('-')"/>
+									<taxpayerId t-esc="customer_vat_hu[0]"/>
+									<vatCode t-esc="customer_vat_hu[1]"/>
+									<countyCode t-esc="customer_vat_hu[2]"/>
+								</customerTaxNumber>
+								<customerName t-esc="invoice.partner_id.display_name"/>
+								<customerAddress>
+									<detailedAddress>
+										<countryCode t-esc="invoice.partner_id.country_id.code"/>
+										<postalCode t-esc="invoice.partner_id.zip"/>
+										<city t-esc="invoice.partner_id.city"/>
+										<streetName t-esc="invoice.partner_id.street"/>
+										<publicPlaceCategory>.</publicPlaceCategory>
+										<number t-esc="invoice.partner_id.street2 or '.'"/>
+									</detailedAddress>
+								</customerAddress>
+							</customerInfo>
+							<invoiceDetail>
+								<invoiceCategory>NORMAL</invoiceCategory>
+								<invoiceDeliveryDate t-esc="invoice.fulfillment_date"/>
+								<currencyCode t-esc="invoice.currency_id.name"/>
+								<exchangeRate t-esc="invoice.currency_rate"/>
+								<paymentDate t-esc="invoice.invoice_date_due"/>
+								<invoiceAppearance>PAPER</invoiceAppearance>
+							</invoiceDetail>
+						</invoiceHead>
+						<invoiceLines>
+							<t t-set="linenumber" t-value="0"/>
+							<t t-set="lineNumberreference" t-value="len(invoice.invoice_line_ids)"/>
+							<line t-foreach="invoice.invoice_line_ids" t-as="il" t-if="il.display_type == False">
+								<t t-set="linenumber" t-value="linenumber+1"/>
+								<t t-set="lineNumberreference" t-value="lineNumberreference+1"/>
+								<lineNumber t-esc="linenumber"/>
+								<t t-if="invoice.type=='out_refund'">
+									<lineModificationReference>
+										<lineNumberReference t-esc="lineNumberreference"/>
+										<lineOperation>CREATE</lineOperation>
+									</lineModificationReference>					
+								</t>
+								<lineExpressionIndicator>true</lineExpressionIndicator>
+								<t t-if="il.product_id.type in ['product', 'consu']">
+									<lineNatureIndicator>PRODUCT</lineNatureIndicator>
+								</t>
+								<t t-elif="il.product_id.type == 'service'">
+									<lineNatureIndicator>SERVICE</lineNatureIndicator>
+								</t>
+								<t t-else="">
+									<lineNatureIndicator>OTHER</lineNatureIndicator>
+								</t>
+								<lineDescription t-esc="il.name[0:50]"/>
+								<quantity t-esc="il.quantity"/>
+								<unitOfMeasure t-esc="il.product_uom_id.nav_uom"/>
+								<unitPrice t-esc="il.price_unit"/>
+								<lineAmountsNormal>
+									<lineNetAmountData>
+										<lineNetAmount t-esc="'{:.2f}'.format(il.price_subtotal)"/>
+										<lineNetAmountHUF t-esc="'{:.2f}'.format(il.price_subtotal*invoice.currency_rate)"/>
+									</lineNetAmountData>
+									<lineVatRate>
+										<t t-foreach="il.tax_ids" t-as="line_tax">
+											<vatPercentage t-esc="line_tax.amount / 100.0"/>
+										</t>
+									</lineVatRate>
+									<lineVatData>
+										<lineVatAmount t-esc="'{:.2f}'.format(il.price_total - il.price_subtotal)"/>
+										<lineVatAmountHUF t-esc="'{:.2f}'.format((il.price_total - il.price_subtotal)*invoice.currency_rate)"/>
+									</lineVatData>
+									<lineGrossAmountData>
+										<lineGrossAmountNormal t-esc="'{:.2f}'.format(il.price_total)"/>
+										<lineGrossAmountNormalHUF t-esc="'{:.2f}'.format(il.price_total*invoice.currency_rate)"/>
+									</lineGrossAmountData>
+								</lineAmountsNormal>
+							</line>
+						</invoiceLines>
+						<invoiceSummary>
+							<summaryNormal>
+								<summaryByVatRate t-foreach="invoice.amount_by_group" t-as="tl">
+									<vatRate>
+										<vatPercentage t-esc="'{:.2f}'.format(tl[9]/100.0)"/>
+									</vatRate>
+									<vatRateNetData>
+										<vatRateNetAmount t-esc="'{:.2f}'.format(tl[2])"/>
+										<vatRateNetAmountHUF t-esc="'{:.2f}'.format(tl[2]*invoice.currency_rate)"/>
+									</vatRateNetData>
+									<vatRateVatData>
+										<vatRateVatAmount t-esc="'{:.2f}'.format(tl[1])"/>
+										<vatRateVatAmountHUF t-esc="'{:.2f}'.format(tl[1]*invoice.currency_rate)"/>
+									</vatRateVatData>
+									<vatRateGrossData>
+										<vatRateGrossAmount t-esc="'{:.2f}'.format(tl[2]+tl[1])"/>
+										<vatRateGrossAmountHUF t-esc="'{:.2f}'.format((tl[2]+tl[1])*invoice.currency_rate)"/>
+									</vatRateGrossData>
+								</summaryByVatRate>
+								<invoiceNetAmount t-esc="'{:.2f}'.format(invoice.amount_untaxed)"/>
+								<invoiceNetAmountHUF t-esc="'{:.2f}'.format(invoice.amount_untaxed*invoice.currency_rate)"/>
+								<invoiceVatAmount t-esc="'{:.2f}'.format(invoice.amount_tax)"/>
+								<invoiceVatAmountHUF t-esc="'{:.2f}'.format(invoice.amount_tax*invoice.currency_rate)"/>
+							</summaryNormal>
+							<summaryGrossData>
+								<invoiceGrossAmount t-esc="'{:.2f}'.format(invoice.amount_total)"/>
+								<invoiceGrossAmountHUF t-esc="'{:.2f}'.format(invoice.amount_total*invoice.currency_rate)"/>
+							</summaryGrossData>
+						</invoiceSummary>
+					</invoice>
+				</invoiceMain>
+            </InvoiceData>
+        </t>
+    </template>
+
+    <!-- remove menu="False" to display report in menu -->
+    <report id="nav_online_invoice_xml_report"
+            name="nav_online_invoice.nav_online_invoice_report_xml_view"
+            string="NAV online invoice report"
+            report_type="qweb-xml"
+            print_report_name="'Nav online invoice report'"
+            file="nav_online_invoice_report_xml.xml"
+            model="account.move"
+            menu="False"
+            />
+
+</odoo>

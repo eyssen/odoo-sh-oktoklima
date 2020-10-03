@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="product_uom_nav_form_view">
+        <field name="name">product.uom.nav.form.view</field>
+        <field name="inherit_id" ref="uom.product_uom_form_view"/>
+        <field name="model">uom.uom</field>
+        <field name="arch" type="xml">
+            <data>
+
+                <xpath expr="//group/group[2]" position="inside">
+                  <field name="nav_uom"/>
+                </xpath>
+
+            </data>
+        </field>
+    </record>
+
+
+</odoo>
